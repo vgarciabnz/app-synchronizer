@@ -1,0 +1,24 @@
+{
+  "name": "app-synchronizer",
+  "description": "App synchronizer",
+  "version": "0.1.0",
+  "private": true,
+  "developer": {
+    "name": "MSF-OCBA"
+  },
+  "icons": {
+    "48": "icons"
+  },
+  "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-scripts": "1.0.17"
+  },
+  "scripts": {
+    "manifest": "d2-manifest package.json build/manifest.webapp",
+    "start": "react-scripts start",
+    "build": "react-scripts build && npm run manifest",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
