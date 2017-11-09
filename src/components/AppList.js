@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { AppItem } from './AppItem';
+import AppItem from './AppItem';
 import { Settings } from '../services/Settings';
-import { Paper } from 'material-ui';
 
-export class AppList extends Component {
+class AppList extends Component {
 
     settings = new Settings();
 
@@ -52,6 +51,7 @@ export class AppList extends Component {
     render() {
         return (
             <div>
+                <h2>Installed applications</h2>
                 {this.state.apps.map( app => (
                     <div key={app.name}>
                         <AppItem app={app}/>
@@ -60,5 +60,6 @@ export class AppList extends Component {
             </div>
         )
     }
-
 }
+
+export default AppList;

@@ -1,25 +1,20 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Card, { CardContent, CardActions } from 'material-ui/Card';
+import Card from 'material-ui/Card';
+import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
+import AppUploader from './AppUploader';
 
 const styles = {
     card: {
         minWidth: 275,
-        maxWidth: 400,
+        margin: 15,
+        padding: 10
     },
-    title: {
-        marginBottom: 16,
-        fontSize: 14,
-
-    },
-
-    pos: {
-        marginBottom: 12,
-
-    },
+    actions: {
+        padding: 10
+    }
 };
 
 
@@ -41,26 +36,33 @@ export class AppItem extends Component {
 
     render() {
         return (
-            <Card className={styles.card}>
-                <Typography type="headline" component="h2">
-                    {this.state.name}
-                </Typography>
-                <Typography component="p">
-                    Local Version: {this.state.localVersion}
-                </Typography>
-                <Typography component="p">
-                    Remote Version: {this.state.remoteVersion}
-
-                </Typography>
-
-                <CardActions>
-                    <a href={this.state.repoUrl} target="_blank"> <Button to={this.state.repoUrl} raised color="accent">
-                        Download
-                        </Button>
-                    </a>
-                </CardActions>
+            <Card className={this.props.classes.card}>
+                <Grid container>
+                    <Grid item md={8}>
+                        <Typography type="headline" component="h2">
+                            {this.state.name}
+                        </Typography>
+                        <Typography component="p">
+                            Local Version: {this.state.localVersion}
+                        </Typography>
+                        <Typography component="p">
+                            Remote Version: {this.state.remoteVersion}
+                        </Typography>
+                    </Grid>
+                    <Grid item md={4}>
+                        <div>
+                            <a href={this.state.repoUrl} target="_blank"> <Button to={this.state.repoUrl} raised color="accent">
+                                Download
+                                </Button>
+                            </a>
+                            <AppUploader className={this.props.classes.actions}/>
+                        </div>
+                    </Grid>
+                </Grid>
             </Card>
         )
     }
 
 }
+
+export default withStyles(styles)(AppItem);
