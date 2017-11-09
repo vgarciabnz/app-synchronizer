@@ -51,15 +51,13 @@ export class AppList extends Component {
 
     render() {
         return (
-           
-                <div>
-                    {this.state.apps.map( app => (
-                        <div key={app.name}>
-                            <AppItem app={app}/>
-                        </div>
-                    ))}
-                </div>
-           
+            <div>
+                {this.state.apps.map( app => (
+                    <div key={app.name}>
+                        <AppItem app={app}/>
+                    </div>
+                ))}
+            </div>
         )
     }
 

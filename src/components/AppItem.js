@@ -15,13 +15,12 @@ const styles = {
         fontSize: 14,
 
     },
- 
+
     pos: {
         marginBottom: 12,
 
     },
 };
-
 
 
 export class AppItem extends Component {
@@ -35,32 +34,32 @@ export class AppItem extends Component {
             repoUrl: props.app.repoUrl
         }
     }
- download(url) {
+    
+    download(url) {
+        return window.open(url);
+    }
 
-    return window.open(url);
-}
     render() {
         return (
-
             <Card className={styles.card}>
                 <Typography type="headline" component="h2">
                     {this.state.name}
                 </Typography>
-                <Typography  component="p">
-                   Local Version: {this.state.localVersion}
+                <Typography component="p">
+                    Local Version: {this.state.localVersion}
                 </Typography>
                 <Typography component="p">
-                   Remote Version: {this.state.remoteVersion}
-                   
+                    Remote Version: {this.state.remoteVersion}
+
                 </Typography>
 
-<CardActions>
-        <a  href={this.state.repoUrl} target="_blank"> <Button to={this.state.repoUrl} raised color="accent">
-            Download 
-          </Button></a>
-      </CardActions>    
+                <CardActions>
+                    <a href={this.state.repoUrl} target="_blank"> <Button to={this.state.repoUrl} raised color="accent">
+                        Download
+                        </Button>
+                    </a>
+                </CardActions>
             </Card>
-
         )
     }
 

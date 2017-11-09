@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { AdminPanel } from './components/AdminPanel';
 import { AppList } from './components/AppList';
-import { Settings } from './services/Settings';
 
 class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <AdminPanel/>
-        <AppList/>
-      </div>
+      <BrowserRouter>
+        <div>
+          <Link to="/apps">Apps</Link>
+          <Link to="/admin">Admin</Link>
+
+          <Switch>
+            <Route path="/apps" component={AppList}/>
+            <Route path="/admin" component={AdminPanel}/>
+          </Switch>
+        </div>
+      </BrowserRouter>
     );
   }
 }
