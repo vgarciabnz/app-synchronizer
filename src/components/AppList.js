@@ -19,15 +19,17 @@ export class AppList extends Component {
     async loadAppList() {
         const localAppList = await this.settings.getLocalAppList();
         const remoteAppList = await this.settings.getRemoteAppList();
-
+        const repoBaseUrl="https://github.com/msf-ocba/";
         let appList = localAppList.map(app => ({
             key: app.key,
             name: app.name,
-            localVerson: app.version,
+            repoUrl: repoBaseUrl+app.key+'/releases/download/'+app.version+'/'+app.key+'.zip',
+            localVersion: app.version,
             remoteVersion: undefined
         }))
 
         remoteAppList.forEach(remoteApp => {
+            remoteApp.repoUrl= repoBaseUrl+remoteApp.key+'/releases/download/'+remoteApp.version+'/'+remoteApp.key+'.zip';
             const localAppIndex = appList.findIndex(localApp => remoteApp.key === localApp.key);
             if (localAppIndex > -1) {
                 appList[localAppIndex].remoteVersion = remoteApp.version;
@@ -35,7 +37,8 @@ export class AppList extends Component {
                 appList.push({
                     key: remoteApp.key,
                     name: remoteApp.name,
-                    localVerson: undefined,
+                    repoUrl: remoteApp.repoUrl,
+                    localVersion: undefined,
                     remoteVersion: remoteApp.version
                 })
             }
@@ -48,7 +51,7 @@ export class AppList extends Component {
 
     render() {
         return (
-            <Paper zDepth={2}>
+           
                 <div>
                     {this.state.apps.map( app => (
                         <div key={app.name}>
@@ -56,7 +59,7 @@ export class AppList extends Component {
                         </div>
                     ))}
                 </div>
-            </Paper>
+           
         )
     }
 

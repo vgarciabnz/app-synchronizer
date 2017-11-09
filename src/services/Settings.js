@@ -4,7 +4,7 @@ export class Settings {
 
     remoteUrl;
     remoteUser;     //{username: "", password: ""}
-
+    repoBaseUrl="https://github.com/msf-ocba/";
     namespace = "app-synchronizer";
     remoteUserKey = "remoteUser";
 
