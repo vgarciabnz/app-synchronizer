@@ -22,16 +22,17 @@ class AppList extends Component {
         let appList = localAppList.map(app => ({
             key: app.key,
             name: app.name,
-            repoUrl: repoBaseUrl+app.key+'/releases/download/'+app.version+'/'+app.key+'.zip',
+            repoUrl: undefined,
             localVersion: app.version,
             remoteVersion: undefined
         }))
 
         remoteAppList.forEach(remoteApp => {
-            remoteApp.repoUrl = `${repoBaseUrl}${remoteApp.key}/releases/download/${remoteApp.version}/${remoteApp.key}.zip`;
+            remoteApp.repoUrl = `${repoBaseUrl}${remoteApp.key}/releases/download/v${remoteApp.version}/${remoteApp.key}.zip`;
             const localAppIndex = appList.findIndex(localApp => remoteApp.key === localApp.key);
             if (localAppIndex > -1) {
                 appList[localAppIndex].remoteVersion = remoteApp.version;
+                appList[localAppIndex].repoUrl = remoteApp.repoUrl;
             } else {
                 appList.push({
                     key: remoteApp.key,

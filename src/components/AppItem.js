@@ -3,8 +3,7 @@ import Card from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
-import Button from 'material-ui/Button';
-import AppUploader from './AppUploader';
+import AppItemActions from './AppItemActions';
 
 const styles = {
     card: {
@@ -14,6 +13,9 @@ const styles = {
     },
     actions: {
         padding: 10
+    },
+    button: {
+        "text-decoration": "none"
     }
 };
 
@@ -24,13 +26,15 @@ export class AppItem extends Component {
 
         this.state = {
             name: props.app.name,
+            key: props.app.key,
             localVersion: props.app.localVersion,
             remoteVersion: props.app.remoteVersion,
             repoUrl: props.app.repoUrl,
-            isUpdated: props.app.localVersion === props.app.remoteVersion
+            appStatus: props.app.localVersion === props.app.remoteVersion ? "UP-TO-DATE" :
+                props.app.remoteVersion === undefined ? "DEPRECATED" : "OUTDATED"
         }
     }
-    
+
     download(url) {
         return window.open(url);
     }
@@ -51,16 +55,7 @@ export class AppItem extends Component {
                         </Typography>
                     </Grid>
                     <Grid item md={4}>
-                        {this.state.isUpdated ? (
-                            <div>Up-to-date</div>
-                        ) : (
-                            <div>
-                                <a href={this.state.repoUrl} target="_blank"> 
-                                    <Button to={this.state.repoUrl} raised color="accent">Download</Button>
-                                </a>
-                                <AppUploader className={this.props.classes.actions}/>
-                            </div>
-                        )}
+                        <AppItemActions app={this.state}></AppItemActions>
                     </Grid>
                 </Grid>
             </Card>
