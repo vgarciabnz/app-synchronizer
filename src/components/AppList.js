@@ -27,7 +27,7 @@ export class AppList extends Component {
         }))
 
         remoteAppList.forEach(remoteApp => {
-            const localAppIndex = appList.findIndex(localApp => remoteApp.key == localApp.key);
+            const localAppIndex = appList.findIndex(localApp => remoteApp.key === localApp.key);
             if (localAppIndex > -1) {
                 appList[localAppIndex].remoteVersion = remoteApp.version;
             } else {
@@ -51,7 +51,8 @@ export class AppList extends Component {
                 {this.state.apps.map( app => (
                     <div key={app.name}>
                         <AppItem app={app}/>
-                    </div>))}
+                    </div>
+                ))}
             </div>
         )
     }

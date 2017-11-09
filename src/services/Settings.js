@@ -1,5 +1,4 @@
 import { getInstance } from 'd2/lib/d2';
-import { Api } from './Api';
 
 export class Settings {
 
