@@ -15,13 +15,34 @@ export class AppList extends Component {
         this.loadAppList();
     }
 
-    loadAppList() {
-        this.settings.getLocalAppList()
-            .then(appList => {
-                this.setState({
-                    apps: appList
+    async loadAppList() {
+        const localAppList = await this.settings.getLocalAppList();
+        const remoteAppList = await this.settings.getRemoteAppList();
+
+        let appList = localAppList.map(app => ({
+            key: app.key,
+            name: app.name,
+            localVerson: app.version,
+            remoteVersion: undefined
+        }))
+
+        remoteAppList.forEach(remoteApp => {
+            const localAppIndex = appList.findIndex(localApp => remoteApp.key == localApp.key);
+            if (localAppIndex > -1) {
+                appList[localAppIndex].remoteVersion = remoteApp.version;
+            } else {
+                appList.push({
+                    key: remoteApp.key,
+                    name: remoteApp.name,
+                    localVerson: undefined,
+                    remoteVersion: remoteApp.version
                 })
-            })
+            }
+        });
+
+        this.setState({
+            apps: appList
+        });
     }
 
     render() {
@@ -29,7 +50,7 @@ export class AppList extends Component {
             <div>
                 {this.state.apps.map( app => (
                     <div key={app.name}>
-                        <AppItem name={app.name} localVersion={app.localVersion} remoteVersion={app.remoteVersion}/>
+                        <AppItem app={app}/>
                     </div>))}
             </div>
         )

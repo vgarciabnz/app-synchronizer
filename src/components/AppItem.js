@@ -6,9 +6,9 @@ export class AppItem extends Component {
         super(props);
 
         this.state = {
-            name: props.name,
-            localVersion: props.localVersion,
-            remoteVersion: props.remoteVersion
+            name: props.app.name,
+            localVersion: props.app.localVersion,
+            remoteVersion: props.app.remoteVersion
         }
     }
 
