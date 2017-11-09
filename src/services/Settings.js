@@ -4,16 +4,18 @@ export class Settings {
 
     remoteUrl;
     remoteUser;     //{username: "", password: ""}
-    repoBaseUrl="https://github.com/msf-ocba/";
+    repoBaseUrl;
     namespace = "app-synchronizer";
     remoteUserKey = "remoteUser";
+    repoBaseUrlKey = "repoBaseUrl";
 
     async getSettings() {
-        const response = await Promise.all([this.getRemoteUrl(), this.getRemoteUser()]);
+        const response = await Promise.all([this.getRemoteUrl(), this.getRemoteUser(), this.getRepoBaseUrl()]);
         const settings = {
             remoteUrl: response[0],
             remoteUsername: response[1].username,
-            remotePassword: response[1].password
+            remotePassword: response[1].password,
+            repoBaseUrl: response[2]
         }
         return Promise.resolve(settings);
     }
@@ -41,6 +43,20 @@ export class Settings {
                 .then(remoteUser => {
                     this.remoteUser = remoteUser;
                     return remoteUser;
+                })
+        }
+    }
+
+    getRepoBaseUrl() {
+        if (this.repoBaseUrl !== undefined) {
+            return Promise.resolve(this.repoBaseUrl);
+        } else {
+            return getInstance()
+                .then(d2 => d2.dataStore.get(this.namespace))
+                .then(namespace => namespace.get(this.repoBaseUrlKey))
+                .then(repoBaseUrl => {
+                    this.repoBaseUrl = repoBaseUrl.href;
+                    return this.repoBaseUrl;
                 })
         }
     }

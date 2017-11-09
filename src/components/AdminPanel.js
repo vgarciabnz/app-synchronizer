@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { TextField } from 'material-ui';
+import Grid from 'material-ui/Grid';
 import { Settings } from '../services/Settings';
 
 export class AdminPanel extends Component {
@@ -27,7 +28,7 @@ export class AdminPanel extends Component {
                 remoteUrl: settings.remoteUrl,
                 remoteUsername: settings.remoteUsername,
                 remotePassword: settings.remotePassword,
-                resourcesUrl: settings.remoteUrl
+                repoBaseUrl: settings.repoBaseUrl
             }));
     }
 
@@ -46,29 +47,35 @@ export class AdminPanel extends Component {
 
     render() {
         return (
-            <div>
-                <TextField
-                    label="Remote Instance Url"
-                    value={this.state.remoteUrl}
-                    onChange={this.handleRemoteUrlChange}
-                /><br />
-                <br />
-                <TextField
-                    label="Username"
-                    value={this.state.remoteUsername}
-                    onChange={this.handleRemoteUsernameChange}
-                /><br />
-                <TextField
-                    label="Password"
-                    type="password"
-                    value={this.state.remotePassword}
-                    onChange={this.handleRemotePasswordChange}
-                /><br />
-                <br />
-                <TextField
-                    label="Resources Url"
-                />
-            </div>
+            <Grid container>
+                <Grid item md={8}>
+                    <TextField
+                        label="Remote Instance Url"
+                        value={this.state.remoteUrl}
+                        fullWidth="true"
+                    /><br />
+                    <br />
+                    <TextField
+                        label="Username"
+                        value={this.state.remoteUsername}
+                        onChange={this.handleRemoteUsernameChange}
+                        fullWidth="true"
+                    /><br />
+                    <TextField
+                        label="Password"
+                        type="password"
+                        value={this.state.remotePassword}
+                        onChange={this.handleRemotePasswordChange}
+                        fullWidth="true"
+                    /><br />
+                    <br />
+                    <TextField
+                        label="Resources Url"
+                        value={this.state.repoBaseUrl}
+                        fullWidth="true"
+                    />
+                </Grid>
+            </Grid>
         )
     }
 

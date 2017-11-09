@@ -18,7 +18,7 @@ class AppList extends Component {
     async loadAppList() {
         const localAppList = await this.settings.getLocalAppList();
         const remoteAppList = await this.settings.getRemoteAppList();
-        const repoBaseUrl="https://github.com/msf-ocba/";
+        const repoBaseUrl = await this.settings.getRepoBaseUrl();
         let appList = localAppList.map(app => ({
             key: app.key,
             name: app.name,
@@ -28,7 +28,7 @@ class AppList extends Component {
         }))
 
         remoteAppList.forEach(remoteApp => {
-            remoteApp.repoUrl= repoBaseUrl+remoteApp.key+'/releases/download/'+remoteApp.version+'/'+remoteApp.key+'.zip';
+            remoteApp.repoUrl = `${repoBaseUrl}${remoteApp.key}/releases/download/${remoteApp.version}/${remoteApp.key}.zip`;
             const localAppIndex = appList.findIndex(localApp => remoteApp.key === localApp.key);
             if (localAppIndex > -1) {
                 appList[localAppIndex].remoteVersion = remoteApp.version;
