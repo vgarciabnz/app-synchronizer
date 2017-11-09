@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AppItem } from './AppItem';
 import { Settings } from '../services/Settings';
+import { Paper } from 'material-ui';
 
 export class AppList extends Component {
 
@@ -47,13 +48,15 @@ export class AppList extends Component {
 
     render() {
         return (
-            <div>
-                {this.state.apps.map( app => (
-                    <div key={app.name}>
-                        <AppItem app={app}/>
-                    </div>
-                ))}
-            </div>
+            <Paper zDepth={2}>
+                <div>
+                    {this.state.apps.map( app => (
+                        <div key={app.name}>
+                            <AppItem app={app}/>
+                        </div>
+                    ))}
+                </div>
+            </Paper>
         )
     }
 

@@ -7,6 +7,16 @@ export class Settings {
 
     namespace = "app-synchronizer";
     remoteUserKey = "remoteUser";
+
+    async getSettings() {
+        const response = await Promise.all([this.getRemoteUrl(), this.getRemoteUser()]);
+        const settings = {
+            remoteUrl: response[0],
+            remoteUsername: response[1].username,
+            remotePassword: response[1].password
+        }
+        return Promise.resolve(settings);
+    }
     
     getRemoteUrl() {
         if (this.remoteUrl !== undefined) {
