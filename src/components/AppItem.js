@@ -26,7 +26,8 @@ export class AppItem extends Component {
             name: props.app.name,
             localVersion: props.app.localVersion,
             remoteVersion: props.app.remoteVersion,
-            repoUrl: props.app.repoUrl
+            repoUrl: props.app.repoUrl,
+            isUpdated: props.app.localVersion === props.app.remoteVersion
         }
     }
     
@@ -50,13 +51,16 @@ export class AppItem extends Component {
                         </Typography>
                     </Grid>
                     <Grid item md={4}>
-                        <div>
-                            <a href={this.state.repoUrl} target="_blank"> <Button to={this.state.repoUrl} raised color="accent">
-                                Download
-                                </Button>
-                            </a>
-                            <AppUploader className={this.props.classes.actions}/>
-                        </div>
+                        {this.state.isUpdated ? (
+                            <div>Up-to-date</div>
+                        ) : (
+                            <div>
+                                <a href={this.state.repoUrl} target="_blank"> 
+                                    <Button to={this.state.repoUrl} raised color="accent">Download</Button>
+                                </a>
+                                <AppUploader className={this.props.classes.actions}/>
+                            </div>
+                        )}
                     </Grid>
                 </Grid>
             </Card>
