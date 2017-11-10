@@ -24,7 +24,10 @@ class AppItemActions extends Component {
                 this.setState({ message: "App Updated!"});
                 return d2.system.reloadApps();
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+                this.setState({ message: "Some error when updating app"});
+            });
     }
 
     async deleteApp() {
@@ -35,9 +38,12 @@ class AppItemActions extends Component {
             .then(success => {
                 console.log("App deleted");
                 this.setState({ message: "App Deleted!"});
-                return d2.system.reloadApps()
+                return d2.system.reloadApps();
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+                this.setState({ message: "Some error when deleting app"});
+            });
     }
 
     render() {
